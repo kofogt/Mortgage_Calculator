@@ -1,7 +1,8 @@
 public class betting {
-   
+    public static void main(String[] args) {
         martingale();
     }
+
         public static int martingale ()
         {
             int money = 1000;
