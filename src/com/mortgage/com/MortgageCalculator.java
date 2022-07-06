@@ -5,45 +5,46 @@ import java.util.Scanner;
 public class MortgageCalculator {
 
     public static void main(String[] args) {
-        mortgage_Calculator();
+        mortgageCalculator();
     }
-    private static double mortgage_Calculator(){
+    private static void mortgageCalculator(){
         double principal;
-        double annual_interest_rate;
-        double period_years;
+        double annualInterestRate;
+        double periodYears;
         Scanner scanner = new Scanner(System.in);
         while (true){
             System.out.print("Principal:  ");
             principal = scanner.nextDouble();
-            if (principal>= 1000 && principal <=2000000){
+            if (principal>= 1000 && principal <=2000000000){
                 break;
             }
-            System.out.println("Enter a figure between 1000 and 2000000");
+            System.out.println("Enter a figure between 1000 and 200000000");
         }
         while (true){
             System.out.print("Annual Interest Rate:  ");
-            annual_interest_rate = scanner.nextDouble();
-            if (annual_interest_rate>= 1 && annual_interest_rate<=100){
+            annualInterestRate = scanner.nextDouble();
+            if (annualInterestRate>= 1 && annualInterestRate<=100){
                 break;
             }
             System.out.println("Enter an interest rate between 1 and 100");
         }
         while (true){
             System.out.print("Period (Years):  ");
-            period_years = scanner.nextDouble();
-            if (period_years>= 1&& period_years <=50){
+            periodYears = scanner.nextDouble();
+            if (periodYears>= 1&& periodYears <=50){
                 break;
             }
             System.out.println("Years should be between 1 and 50.");
         }
-        byte months_year = 12;
-        byte percentage = 100;
-        double number_payments_due = period_years* months_year;
-        double monthlyPayment = (annual_interest_rate/percentage)/months_year;
-        double formular_top_line = principal * (monthlyPayment )*(Math.pow(1+monthlyPayment, number_payments_due));
-        double formular_bottom_line = (Math.pow((1 + monthlyPayment), number_payments_due)) - 1;
-        double mortgage = formular_top_line/formular_bottom_line;
+        final int monthsYear = 12;
+        final int percentage = 100;
+        double numberPaymentsDue = periodYears* monthsYear;
+        double monthlyPayment = (annualInterestRate/percentage)/monthsYear;
+        double formularTopLine = principal * (monthlyPayment )*(Math.pow(1+monthlyPayment, numberPaymentsDue));
+        double formularBottomLine = (Math.pow((1 + monthlyPayment), numberPaymentsDue)) - 1;
+        double mortgage = formularTopLine/formularBottomLine;
         System.out.println("Your mortgage is "+ mortgage+" monthly.");
-        return mortgage;
     }
 }
+
+
