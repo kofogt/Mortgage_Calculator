@@ -43,7 +43,7 @@ public class MortgageCalculator {
         double formular_top_line = principal * (monthlyPayment )*(Math.pow(1+monthlyPayment, number_payments_due));
         double formular_bottom_line = (Math.pow((1 + monthlyPayment), number_payments_due)) - 1;
         double mortgage = formular_top_line/formular_bottom_line;
-        System.out.println("Mortgage is "+ mortgage);
+        System.out.println("Your mortgage is "+ mortgage+" monthly.");
         return mortgage;
     }
 }
