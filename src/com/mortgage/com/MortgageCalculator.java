@@ -7,7 +7,7 @@ public class MortgageCalculator {
     public static void main(String[] args) {
         mortgage_Calculator();
     }
-    public static double mortgage_Calculator(){
+    private static double mortgage_Calculator(){
         double principal;
         double annual_interest_rate;
         double period_years;
@@ -36,7 +36,6 @@ public class MortgageCalculator {
             }
             System.out.println("Years should be between 1 and 50.");
         }
-
         byte months_year = 12;
         byte percentage = 100;
         double number_payments_due = period_years* months_year;
