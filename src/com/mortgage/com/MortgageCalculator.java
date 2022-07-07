@@ -1,13 +1,17 @@
 package com.mortgage.com;
 
 import java.util.Scanner;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class MortgageCalculator {
 
     public static void main(String[] args) {
         mortgageCalculator();
+
     }
-    private static void mortgageCalculator(){
+    public static final DecimalFormat df = new DecimalFormat("0.00");
+    public static void mortgageCalculator(){
         double principal;
         double annualInterestRate;
         double periodYears;
@@ -70,10 +74,10 @@ public class MortgageCalculator {
                 balanceMonth = (topBalanceLine / bottomBalanceLine);
                 balancePerMonth = totalPaid - balanceMonth;
                 totalPaid =balancePerMonth;
-                System.out.println("After you pay your mortgage for month " + count +". Your balance after paying " + mortgage+ " will $"+ balancePerMonth);
+                System.out.println("After you pay your mortgage for month " + count +". Your balance after paying " + mortgage+ " will $"+ df.format(balancePerMonth));
             } else {
                 count ++;
-                System.out.println("Your last payment is $"+ totalPaid+" You have paid off your last Mortgage in "+ count+". You paid "+ downPaymentPrincipal);
+                System.out.println("Your last payment is $"+ df.format(totalPaid)+" You have paid off your last Mortgage in "+ count+"months. You paid $"+ df.format(downPaymentPrincipal));
                 break;
             }
         }
