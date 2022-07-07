@@ -11,6 +11,11 @@ public class MortgageCalculator {
         double principal;
         double annualInterestRate;
         double periodYears;
+        double downPayment;
+        double balanceMonth;
+        double balancePerMonth;
+        int count;
+        double totalPaid;
         Scanner scanner = new Scanner(System.in);
         while (true){
             System.out.print("Principal:  ");
@@ -23,7 +28,7 @@ public class MortgageCalculator {
         while (true){
             System.out.print("Annual Interest Rate:  ");
             annualInterestRate = scanner.nextDouble();
-            if (annualInterestRate>= 1 && annualInterestRate<=100){
+            if (annualInterestRate>= 0.1 && annualInterestRate<=99){
                 break;
             }
             System.out.println("Enter an interest rate between 1 and 100");
@@ -36,14 +41,43 @@ public class MortgageCalculator {
             }
             System.out.println("Years should be between 1 and 50.");
         }
-        final int monthsYear = 12;
-        final int percentage = 100;
+        while (true){
+            System.out.print("Down Payment Percentage:  ");
+            downPayment = scanner.nextDouble();
+            if (downPayment>= 0&& downPayment<=95){
+                break;
+            }
+            System.out.println("Percentage should be between 1 and 50.");
+        }
+        final double monthsYear = 12;
+        final double percentage = 100;
+        double downPaymentPrincipal = (downPayment/ percentage) * principal;
         double numberPaymentsDue = periodYears* monthsYear;
         double monthlyPayment = (annualInterestRate/percentage)/monthsYear;
-        double formularTopLine = principal * (monthlyPayment )*(Math.pow(1+monthlyPayment, numberPaymentsDue));
+        double  downLessPrincipal = principal- downPaymentPrincipal;
+        double formularTopLine =  monthlyPayment *Math.pow((1+monthlyPayment), numberPaymentsDue);
         double formularBottomLine = (Math.pow((1 + monthlyPayment), numberPaymentsDue)) - 1;
-        double mortgage = formularTopLine/formularBottomLine;
-        System.out.println("Your mortgage is "+ mortgage+" monthly.");
+        double mortgage = downLessPrincipal * (formularTopLine/formularBottomLine);
+        double  topBalanceLine =  (downLessPrincipal  * monthlyPayment) * Math.pow((1 + monthlyPayment), numberPaymentsDue);
+        double bottomBalanceLine = Math.pow((1+monthlyPayment), numberPaymentsDue) - 1;
+        System.out.println("Your mortgage is "+ mortgage+" monthly, after removing a down payment of "+ downPaymentPrincipal);
+        count = 0;
+        totalPaid = mortgage * numberPaymentsDue;
+        downPaymentPrincipal = totalPaid;
+        while(true){
+            if (totalPaid>= mortgage) {
+                count++;
+                balanceMonth = (topBalanceLine / bottomBalanceLine);
+                balancePerMonth = totalPaid - balanceMonth;
+                totalPaid =balancePerMonth;
+                System.out.println("After you pay your mortgage for month " + count +". Your balance after paying " + mortgage+ " will $"+ balancePerMonth);
+            } else {
+                count ++;
+                System.out.println("Your last payment is $"+ totalPaid+" You have paid off your last Mortgage in "+ count+". You paid "+ downPaymentPrincipal);
+                break;
+            }
+        }
+
     }
 }
 
